@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, lazy, Suspense } from 'react';
 import './App.css';
+import { AppContextOne } from './Context';
+import { TodoApp } from './components/exampleHooks/v1'
+const OtherCom = lazy(() => import('./components/otherComponent'))
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Suspense fallback={<div>Loading...</div>} >
+        <OtherCom></OtherCom>
+        <AppContextOne />
+        <TodoApp />
+      </Suspense>
     );
   }
 }
